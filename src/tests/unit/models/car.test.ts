@@ -9,19 +9,23 @@ import create from '../../mocks/CarsModel';
 describe('Model Cars', () => {
 
   
-  describe('Add Car', () => {
+  describe('Create', () => {
+
     before(() => {
       sinon.stub(mongoose.Model, 'create').resolves(create)
     });
     after(() => {
       sinon.stub(mongoose.Model.create as SinonStub).restore()
     });
-    
+
     it('successs', async () => {
       const carModel = new CarModel()
 
       const carCreated = await carModel.create(create)
       expect(carCreated).to.be.deep.equal(create)
     });
+
   })
+
+
 })
