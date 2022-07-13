@@ -1,6 +1,11 @@
-import { Vehicle } from './VehicleInterface';
+import { z } from 'zod';
+import { VehicleSchema } from './VehicleInterface';
 
-export interface Car extends Vehicle {
-  doorsQty: number;
-  seatsQty: number;
-}
+export const CarSchema = VehicleSchema.merge(
+  z.object({
+    doorsQty: z.number().gte(2).lte(4),
+    seatsQty: z.number().gte(2).lte(7),
+  }),
+);
+
+export type Car = z.infer<typeof CarSchema>;

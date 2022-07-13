@@ -1,20 +1,24 @@
-import CustomRouter from './routes/route';
+import CustomRouter from './routes/Router';
 import App from './app';
 
-import CarController from './controllers/cars.controller';
+import CarController from './controllers/Car';
+import MotorcycleController from './controllers/Motorcycle';
 
 import { Car } from './interfaces/CarInterface';
-import CarsMiddleware from './middlewares/cars.middleware';
+import { Motorcycle } from './interfaces/MotorcycleInterface';
 
 const server = new App();
 
 const carController = new CarController();
-const carsMiddleware = new CarsMiddleware();
+const motorcycleController = new MotorcycleController();
 
-const carsRouter = new CustomRouter<Car>();
+const carRouter = new CustomRouter<Car>();
+const motorcycleRouter = new CustomRouter<Motorcycle>();
 
-carsRouter.addRoute(carController, carsMiddleware);
+carRouter.addRoute(carController);
+motorcycleRouter.addRoute(motorcycleController);
 
-server.addRouter(carsRouter.router);
+server.addRouter(carRouter.router);
+server.addRouter(motorcycleRouter.router);
 
 export default server;
